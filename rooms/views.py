@@ -1,5 +1,5 @@
-from django.utils import timezone
 from django.views.generic import ListView
+from django.http import Http404
 from django.shortcuts import render
 
 from . import models
@@ -17,5 +17,8 @@ class HomeView(ListView):
 
 
 def room_detail(request, pk):
-    print(pk)
-    return render(request, "rooms/detail.html")
+    try:
+        room = models.Room.objects.get(pk=pk)
+        return render(request, "rooms/detail.html", {"room": room})
+    except models.Room.DoesNotExist:
+        raise Http404()
