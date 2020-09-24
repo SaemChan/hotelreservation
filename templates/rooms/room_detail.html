@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 
-{% block page_name %}
-Home
-{% endblock page_name %}
+{% block page_title %}
+{{room.name}}
+{% endblock page_title %}
 
 {% block content %}
 <div>
@@ -11,7 +11,7 @@ Home
     <h3>{{room.description}}</h3>
 </div>
 <div>
-    <h2>By : {{room.host.username}}
+    <h2>Host : {{room.host.username}}
         {% if room.host.superhost %}
         (superhost)
         {% endif %}
