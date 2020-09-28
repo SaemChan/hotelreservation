@@ -21,14 +21,14 @@ class CustomUserAdmin(UserAdmin):
                     "birthdate",
                     "language",
                     "currency",
-                    "superhost",
+                    "tophost",
                     "login_method",
                 )
             },
         ),
     )
 
-    list_filter = UserAdmin.list_filter + ("superhost",)
+    list_filter = UserAdmin.list_filter + ("tophost",)
 
     list_display = (
         "username",
@@ -38,7 +38,7 @@ class CustomUserAdmin(UserAdmin):
         "is_active",
         "language",
         "currency",
-        "superhost",
+        "tophost",
         "is_staff",
         "is_superuser",
         "email_verified",

@@ -9,7 +9,7 @@ class HomeView(ListView):
     """ HomeView Definition """
 
     model = models.Room
-    paginate_by = 10
+    paginate_by = 12
     paginate_orphans = 5
     ordering = "created"
     context_object_name = "rooms"
@@ -44,7 +44,7 @@ class SearchView(View):
                 beds = form.cleaned_data.get("beds")
                 baths = form.cleaned_data.get("baths")
                 instant_book = form.cleaned_data.get("instant_book")
-                superhost = form.cleaned_data.get("superhost")
+                tophost = form.cleaned_data.get("tophost")
                 amenities = form.cleaned_data.get("amenities")
                 facilities = form.cleaned_data.get("facilities")
 
@@ -76,8 +76,8 @@ class SearchView(View):
                 if instant_book is True:
                     filter_args["instant_book"] = True
 
-                if superhost is True:
-                    filter_args["host__superhost"] = True
+                if tophost is True:
+                    filter_args["host__tophost"] = True
 
                 for amenity in amenities:
                     filter_args["amenities"] = amenity
