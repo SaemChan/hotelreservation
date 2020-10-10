@@ -39,7 +39,7 @@ class SearchView(View):
                 country = form.cleaned_data.get("country")
                 room_type = form.cleaned_data.get("room_type")
                 price = form.cleaned_data.get("price")
-                guests = form.cleaned_data.get("guests")
+                # guests = form.cleaned_data.get("guests")
                 bedrooms = form.cleaned_data.get("bedrooms")
                 beds = form.cleaned_data.get("beds")
                 baths = form.cleaned_data.get("baths")
@@ -61,8 +61,8 @@ class SearchView(View):
                 if price is not None:
                     filter_args["price__lte"] = price
 
-                if guests is not None:
-                    filter_args["guests__gte"] = guests
+                """if guests is not None:
+                    filter_args["guests__gte"] = guests"""
 
                 if bedrooms is not None:
                     filter_args["bedrooms__gte"] = bedrooms
@@ -98,7 +98,6 @@ class SearchView(View):
                 )
 
         else:
-
             form = forms.SearchForm()
 
         return render(request, "rooms/search.html", {"form": form})
