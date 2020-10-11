@@ -11,17 +11,17 @@ Search
 {% endblock search-bar %}
 
 {% block content %}
-<div class="flex mx-auto container mb-10 text-xl">
+<div class="flex mx-auto container mb-5 text-xl">
     <h2>Search</h2>
 </div>
 <div class="flex mx-auto container mb-10">
-    <form method="get" action="{% url "rooms:search" %}">
+    <form class="mt-4" method="get" action="{% url "rooms:search" %}">
         {{form.as_p}}
         <button class="btn bg-red-500 text-white mt-10">Search</button>
     </form>
 </div>
 <div class="flex mx-auto container mb-10">
-    <h3>Results</h3>
+    <h4>Results</h3>
 </div>
 <div class="flex mx-auto container text-green-600 text-xl font-medium">
     {% for room in rooms %}

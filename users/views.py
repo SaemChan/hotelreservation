@@ -5,6 +5,7 @@ from django.views.generic import FormView, DetailView, UpdateView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, reverse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
@@ -20,6 +21,7 @@ class LoginView(mixins.LoggedOutOnlyView, FormView):
         password = form.cleaned_data.get("password")
         user = authenticate(self.request, username=email, password=password)
         if user is not None:
+            messages.success(self.request, f"Welcome back {user.first_name}")
             login(self.request, user)
         return super().form_valid(form)
 
@@ -169,8 +171,8 @@ class UpdateProfileView(mixins.LoggedInOnlyView, SuccessMessageMixin, UpdateView
 
 
 class UpdatePasswordView(
-    mixins.EmailLoginOnlyView,
     mixins.LoggedInOnlyView,
+    mixins.EmailLoginOnlyView,
     SuccessMessageMixin,
     PasswordChangeView,
 ):
@@ -189,3 +191,12 @@ class UpdatePasswordView(
 
     def get_success_url(self):
         return self.request.user.get_absolute_url()
+
+
+@login_required
+def switch_hosting(request):
+    try:
+        del request.session["is_hosting"]
+    except KeyError:
+        request.session["is_hosting"] = True
+    return redirect(reverse("core:home"))
