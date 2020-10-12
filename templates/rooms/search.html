@@ -16,19 +16,18 @@ Search
 </div>
 <div class="flex mx-auto container mb-10">
     <form class="mt-4" method="get" action="{% url "rooms:search" %}">
-        {{form.as_p}}
+        <span class="border-collapse">{{form.as_p}}</span>
         <button class="btn bg-red-500 text-white mt-10">Search</button>
     </form>
 </div>
 <div class="flex mx-auto container mb-10">
     <h4>Results</h3>
 </div>
-<div class="flex mx-auto container text-green-600 text-xl font-medium">
-    {% for room in rooms %}
-    <a href="{% url 'rooms:detail' room.pk %}">
-        <h3>{{room.name}}</h3>
-    </a>
+<div class="flex mx-auto mb-10">
+    {% for room in rooms  %}
+    {% include 'mixins/room_card.html' with room=room %}
+    {% endfor %}
 </div>
-{% endfor %}
+
 
 {% endblock content %}
